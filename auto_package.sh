@@ -7,9 +7,9 @@ project_name=XXX
 #scheme名
 scheme_name=XXX
 #archive文件夹名称
-archive_path=/Users/wjy/Desktop/packageManager
+archive_path=${project_path}/packageManager
 #导出.ipa文件所在路径
-exportFilePath=/Users/wjy/Desktop/packageManager/${scheme_name}_IPA
+exportFilePath=${archive_path}/${scheme_name}_IPA
 echo "Place enter the number you want to export ? [ 1:app-store 2:ad-hoc] "
 read number
 while([[ $number != 1 ]] && [[ $number != 2 ]])
@@ -20,10 +20,10 @@ do
 done
 if [ $number == 1 ];then
   development_mode=Release
-  exportOptionsPlistPath=/Users/wjy/Desktop/packageManager/ExportOptions_appstore.plist
+  exportOptionsPlistPath=${archive_path}/ExportOptions_appstore.plist
 else
   development_mode=Debug
-  exportOptionsPlistPath=/Users/wjy/Desktop/packageManager/ExportOptions_ad_hoc.plist
+  exportOptionsPlistPath=${archive_path}/ExportOptions_ad_hoc.plist
 fi
 
 echo '*** 正在 编译工程 For '${development_mode}
@@ -62,7 +62,7 @@ altoolPath="/Applications/Xcode.app/Contents/Applications/Application Loader.app
 else
 # 上传IPA到蒲公英
 echo '/// 开始上传到蒲公英 '
-curl -F "file=@/Users/wjy/Desktop/packageManager/XXX_IPA/XXX.ipa" \
+curl -F "file=@${exportFilePath}/${scheme_name}.ipa" \
   -F "uKey=XXX" \
   -F "_api_key=XXX" \
   https://www.pgyer.com/apiv1/app/upload
